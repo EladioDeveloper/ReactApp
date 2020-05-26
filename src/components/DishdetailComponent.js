@@ -7,14 +7,13 @@ class DishDetail extends  Component{
         super(props);
 
         this.state = {
-            dishes: props.dish,
             comment: null
         };
 
     }
 
     renderComments(comment){
-        var dish = this.state.dishes;
+        var dish = this.props.dish;
        this.state.comment = dish.comments.map((comment) => {
             return(
                 <div key={comment.id} className="list-unstyled">
@@ -23,34 +22,36 @@ class DishDetail extends  Component{
                     </p></li>
                 </div>
             );
-        })
+        }) 
 
     }
     render() {
-        var dish = this.state.dishes;
+        // Siempre usa const, y si vas a tener que cambiar el valor en algun momento, usas let. Evita usar var XD,
+        const dish = this.props.dish;
+        if(!dish) return null;
         this.renderComments(dish);
-            return(
-                <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        <Card>
-                            <CardImg width="100%" src={dish.image} alt={dish.name} />
-                            <CardBody>
-                                <CardTitle>{dish.name}</CardTitle>
-                                <CardText>{dish.description}</CardText> 
-                            </CardBody>   
-                        </Card>
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        <Card>
-                            <CardBody>
-                                <h4>Comments</h4>
-                                {this.state.comment}
-                            </CardBody>
-                        </Card>
-                    </div>
+        return(
+            <div className="row">
+                <div className="col-12 col-md-5 m-1">
+                    <Card>
+                        <CardImg width="100%" src={dish.image} alt={dish.name} />
+                        <CardBody>
+                            <CardTitle>{dish.name}</CardTitle>
+                            <CardText>{dish.description}</CardText> 
+                        </CardBody>   
+                    </Card>
                 </div>
-            );
-        }
+                <div className="col-12 col-md-5 m-1">
+                    <Card>
+                        <CardBody>
+                            <h4>Comments</h4>
+                            {this.state.comment}
+                        </CardBody>
+                    </Card>
+                </div>
+            </div>
+        );
+    }
 }
    
 export default DishDetail;
