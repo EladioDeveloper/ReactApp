@@ -1,26 +1,34 @@
 import React, {Component} from 'react';
 import {Card, CardImg, CardBody, CardTitle, CardText} from 'reactstrap';
+import Moment from 'react-moment';
 
 class DishDetail extends  Component{
     constructor(props){
         super(props);
 
         this.state = {
-            dishes: props.dish
+            dishes: props.dish,
+            comment: null
         };
 
     }
 
-    render() {
+    renderComments(comment){
         var dish = this.state.dishes;
-        const comments = dish.comments.map((comment) => {
+       this.state.comment = dish.comments.map((comment) => {
             return(
-                <div key={comment.id} className="li">
+                <div key={comment.id} className="list-unstyled">
                     <li>{comment.comment}</li>
-                    <li>---{comment.author}</li>
+            <li><p>---{comment.author}, {<Moment format="MMM DD, YYYY">{comment.date}</Moment>}
+                    </p></li>
                 </div>
             );
         })
+
+    }
+    render() {
+        var dish = this.state.dishes;
+        this.renderComments(dish);
             return(
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
@@ -36,7 +44,7 @@ class DishDetail extends  Component{
                         <Card>
                             <CardBody>
                                 <h4>Comments</h4>
-                                {comments}
+                                {this.state.comment}
                             </CardBody>
                         </Card>
                     </div>
