@@ -3,10 +3,6 @@ import { Card, CardImg, CardBody, CardTitle, CardText } from "reactstrap";
 import Moment from "react-moment";
 
 class DishDetail extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderDish(dish) {
     return (
       <Card>
@@ -42,7 +38,6 @@ class DishDetail extends Component {
     );
   }
   render() {
-    // Siempre usa const, y si vas a tener que cambiar el valor en algun momento, usas let. Evita usar var XD,
     const dish = this.props.dish;
     if (!dish) return null;
     return (
